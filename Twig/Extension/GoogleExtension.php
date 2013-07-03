@@ -1,38 +1,27 @@
 <?php
 
 /*
- * This file is part of the FOSGoogleBundle package.
+ * This file is part of the BITGoogleBundle package.
  *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ * (c) bitgandtter <http://bitgandtter.github.com/>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace FOS\GoogleBundle\Twig\Extension;
-use FOS\GoogleBundle\Templating\Helper\GoogleHelper;
+namespace BIT\GoogleBundle\Twig\Extension;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use BIT\GoogleBundle\Templating\Helper\GoogleHelper;
 
 class GoogleExtension extends \Twig_Extension
 {
   protected $container;
-  
-  /**
-   * Constructor.
-   *
-   * @param ContainerInterface $container
-   */
+  protected $helper;
   
   public function __construct( ContainerInterface $container )
   {
     $this->container = $container;
+    $this->helper = $this->container->get( 'bit_google.helper' );
   }
-  
-  /**
-   * Returns a list of global functions to add to the existing list.
-   *
-   * @return array An array of global functions
-   */
   
   public function getFunctions( )
   {
@@ -42,31 +31,15 @@ class GoogleExtension extends \Twig_Extension
     return $functions;
   }
   
-  /**
-   * @see GoogleHelper::loginButton()
-   */
-  
   public function renderLoginButton( )
   {
-    $helper = $this->container->get( 'fos_google.helper' );
-    return $helper->loginButton( );
+    return $this->helper->loginButton( );
   }
-  
-  /**
-   * @see GoogleHelper::loginUrl()
-   */
   
   public function renderLoginUrl( )
   {
-    $helper = $this->container->get( 'fos_google.helper' );
-    return $helper->loginUrl( );
+    return $this->helper->loginUrl( );
   }
-  
-  /**
-   * Returns the name of the extension.
-   *
-   * @return string The extension name
-   */
   
   public function getName( )
   {

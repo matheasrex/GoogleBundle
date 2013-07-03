@@ -1,22 +1,22 @@
 <?php
 
 /*
- * This file is part of the FOSGoogleBundle package.
+ * This file is part of the BITGoogleBundle package.
  *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ * (c) bitgandtter <http://bitgandtter.github.com/>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace FOS\GoogleBundle\DependencyInjection;
+namespace BIT\GoogleBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 
-class FOSGoogleExtension extends Extension
+class BITGoogleExtension extends Extension
 {
   protected $resources = array( 'google' => 'google.xml', 'security' => 'security.xml' );
   
@@ -29,41 +29,19 @@ class FOSGoogleExtension extends Extension
     $this->loadDefaults( $container );
     
     if ( isset( $config[ 'alias' ] ) )
-      $container->setAlias( $config[ 'alias' ], 'fos_google.api' );
+      $container->setAlias( $config[ 'alias' ], 'bit_google.api' );
     
     foreach ( array( 'api', 'helper', 'twig' ) as $attribute )
-      $container->setParameter( 'fos_google.' . $attribute . '.class', $config[ 'class' ][ $attribute ] );
+      $container->setParameter( 'bit_google.' . $attribute . '.class', $config[ 'class' ][ $attribute ] );
     
     foreach ( array( 'app_name', 'client_id', 'client_secret', 'state', 'access_type', 'approval_prompt', 'scopes' ) as $attribute )
-      $container->setParameter( 'fos_google.' . $attribute, $config[ $attribute ] );
+      $container->setParameter( 'bit_google.' . $attribute, $config[ $attribute ] );
     
     /* if ( array_key_exists( 'callback_route', $config ) )
       $container->setParameter( 'fos_google.' . $attribute, $config['callback_route'] );
     else */
-    $container->setParameter( 'fos_google.callback_url', $config[ 'callback_url' ] );
+    $container->setParameter( 'bit_google.callback_url', $config[ 'callback_url' ] );
   }
-  
-  /**
-   * @codeCoverageIgnore
-   */
-  
-  public function getXsdValidationBasePath( )
-  {
-    return __DIR__ . '/../Resources/config/schema';
-  }
-  
-  /**
-   * @codeCoverageIgnore
-   */
-  
-  public function getNamespace( )
-  {
-    return 'http://symfony.com/schema/dic/fos_google';
-  }
-  
-  /**
-   * @codeCoverageIgnore
-   */
   
   protected function loadDefaults( $container )
   {

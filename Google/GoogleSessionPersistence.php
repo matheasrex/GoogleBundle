@@ -1,6 +1,14 @@
 <?php
 
-namespace FOS\GoogleBundle\Google;
+/*
+ * This file is part of the BITGoogleBundle package.
+ *
+ * (c) bitgandtter <http://bitgandtter.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+namespace BIT\GoogleBundle\Google;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Google_Client;
@@ -12,7 +20,7 @@ use Google_Oauth2Service as Service;
  */
 class GoogleSessionPersistence extends Google_Client
 {
-  const PREFIX = '_fos_google_';
+  const PREFIX = '_bit_google_';
   
   private $oauth;
   private $session;
@@ -88,9 +96,7 @@ class GoogleSessionPersistence extends Google_Client
     
     $sessionVariableName = $this->constructSessionVariableName( $key );
     if ( $this->session->has( $sessionVariableName ) )
-    {
       return $this->session->get( $sessionVariableName );
-    }
     
     return $default;
     
@@ -125,9 +131,7 @@ class GoogleSessionPersistence extends Google_Client
     foreach ( $this->session->all( ) as $k => $v )
     {
       if ( 0 !== strpos( $k, $this->prefix ) )
-      {
         continue;
-      }
       
       $this->session->remove( $k );
     }

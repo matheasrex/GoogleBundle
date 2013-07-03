@@ -1,18 +1,17 @@
 <?php
 
 /*
- * This file is part of the FOSGoogleBundle package.
+ * This file is part of the BITGoogleBundle package.
  *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ * (c) bitgandtter <http://bitgandtter.github.com/>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace FOS\GoogleBundle\Security\Firewall;
-use FOS\GoogleBundle\Security\Authentication\Token\GoogleUserToken;
+namespace BIT\GoogleBundle\Security\Firewall;
 use Symfony\Component\Security\Http\Firewall\AbstractAuthenticationListener;
 use Symfony\Component\HttpFoundation\Request;
+use BIT\GoogleBundle\Security\Authentication\Token\GoogleUserToken;
 
 /**
  * Google authentication listener.

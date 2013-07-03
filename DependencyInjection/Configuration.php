@@ -1,25 +1,17 @@
 <?php
 
 /*
- * This file is part of the FOSGoogleBundle package.
+ * This file is part of the BITGoogleBundle package.
  *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ * (c) bitgandtter <http://bitgandtter.github.com/>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace BIT\GoogleBundle\DependencyInjection;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-namespace FOS\GoogleBundle\DependencyInjection;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder, Symfony\Component\Config\Definition\ConfigurationInterface;
-
-/**
- * This class contains the configuration information for the bundle
- *
- * This information is solely responsible for how the different configuration
- * sections are normalized, and merged.
- *
- * @author Lukas Kahwe Smith <smith@pooteeweet.org>
- */
 class Configuration implements ConfigurationInterface
 {
   /**
@@ -31,7 +23,7 @@ class Configuration implements ConfigurationInterface
   public function getConfigTreeBuilder( )
   {
     $treeBuilder = new TreeBuilder( );
-    $rootNode = $treeBuilder->root( 'fos_google' );
+    $rootNode = $treeBuilder->root( 'bit_google' );
     
     $rootNode->fixXmlConfig( 'permission', 'permissions' )->children( )// childrens
         ->scalarNode( 'app_name' )->isRequired( )->cannotBeEmpty( )->end( ) // app name
@@ -44,9 +36,9 @@ class Configuration implements ConfigurationInterface
         ->scalarNode( 'access_type' )->defaultValue( 'online' )->end( ) // default acess type online
         ->scalarNode( 'approval_prompt' )->defaultValue( 'auto' )->end( ) // 
         ->arrayNode( 'class' )->addDefaultsIfNotSet( )->children( ) // clasess
-        ->scalarNode( 'api' )->defaultValue( 'FOS\GoogleBundle\Google\GoogleSessionPersistence' )->end( ) // api
-        ->scalarNode( 'helper' )->defaultValue( 'FOS\GoogleBundle\Templating\Helper\GoogleHelper' )->end( ) // template helper
-        ->scalarNode( 'twig' )->defaultValue( 'FOS\GoogleBundle\Twig\Extension\GoogleExtension' )->end( ) // twig ext
+        ->scalarNode( 'api' )->defaultValue( 'BIT\GoogleBundle\Google\GoogleSessionPersistence' )->end( ) // api
+        ->scalarNode( 'helper' )->defaultValue( 'BIT\GoogleBundle\Templating\Helper\GoogleHelper' )->end( ) // template helper
+        ->scalarNode( 'twig' )->defaultValue( 'BIT\GoogleBundle\Twig\Extension\GoogleExtension' )->end( ) // twig ext
         ->end( ) // end clasess
         ->end( )->end( );
     

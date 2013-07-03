@@ -1,25 +1,7 @@
 Introduction
 ============
 
-Note: this branch is compatible with releases of Symfony2 in the 2.0.x branch.
-
-This Bundle enables integration of the Google PHP and JS SDK's. Furthermore it
-also provides a Symfony2 authentication provider so that users can login to a
-Symfony2 application via Google. Furthermore via custom user provider support
-the google login can also be integrated with other data sources like the
-database based solution provided by FOSUserBundle.
-
-Note that logging in a user requires multiple steps:
-
-  1. the user must be logged into Google
-  2. the user must connect his Google account to your site
-
-Please also refer to the official documentation of the SecurityBundle, especially
-for details on the configuration:
-http://symfony.com/doc/2.0/book/security/authentication.html
-
-NOTE:
-  To use in SF 2.0.x Use Tag 0.1
+Note: this branch is compatible with releases of Symfony2 >= v2.3
 
 Installation
 ============
@@ -31,13 +13,13 @@ Installation
 
             {
             "require": {
-                "bitgandtter/google-bundle": "dev-master"
+                "bitgandtter/google-bundle": "0.1"
             	}
             }
 
   2. Run the composer to download the bundle
             
-            $ php composer.phar update
+            $ composer update
           
   
   3. Add this bundle to your application's kernel:
@@ -47,7 +29,7 @@ Installation
           {
               return array(
                   // ...
-                  new FOS\GoogleBundle\FOSGoogleBundle(),
+                  new BIT\GoogleBundle\BITGoogleBundle(),
                   // ...
               );
           }
@@ -83,9 +65,6 @@ Installation
 
           # application/config/config.yml
           security:
-              factories:
-                  - "%kernel.root_dir%/../vendor/bundles/FOS/GoogleBundle/Resources/config/security_factories.xml"
-
               firewalls:
                   public:
                       # since anonymous is allowed users will not be forced to login
@@ -107,18 +86,15 @@ Installation
 
           # application/config/config.yml
           security:
-              factories:
-                    - "%kernel.root_dir%/../vendor/bundles/FOS/GoogleBundle/Resources/config/security_factories.xml"
-
               providers:
                   # choose the provider name freely
 		              google:
-		                id: google.user # see "Example Customer User Provider using the FOS\UserBundle" chapter further down
+		                id: google.user # see "Example Customer User Provider using the BIT\UserBundle" chapter further down
 
               firewalls:
                   public:
                       pattern:   ^/.*
-                      fos_google:
+                      bit_google:
 			            provider: google
                       anonymous: true
                       logout: true 
@@ -132,7 +108,7 @@ Installation
               
               access_control:
                   - { path: ^/google/,           role: [ROLE_GOOGLE] }
-                  - { path: ^/.*,                  role: [IS_AUTHENTICATED_ANONYMOUSLY] }
+                  - { path: ^/.*,                role: [IS_AUTHENTICATED_ANONYMOUSLY] }
 
 Include the login button in your templates
 ------------------------------------------
@@ -143,29 +119,9 @@ Just add the following code in one of your templates:
     
 Or if you want to use:
 
-	{{ google_login_button() }}
+	{% autoescape false %}{{ google_login_url() }}{% endautoescape %}
 	
 This will get you the login url
-
-This link its only a shotcut to generate a url to the real handler controller inside
-the GoogleBundle. You need to configure a route to this controller, the bundle
-propose one taht you can use:
-
-#GoogleBundle/Resources/routing.xml
-
-<?xml version="1.0" encoding="UTF-8" ?>
-
-<routes xmlns="http://symfony.com/schema/routing"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
-
-    <route id="_googleLogin" pattern="/google/login">
-        <default key="_controller">FOSGoogleBundle:Security:login</default>
-    </route>
-
-</routes>
-
-This controller handle the all process
 
 Example Customer User Provider using the FOS\UserBundle
 -------------------------------------------------------
@@ -177,7 +133,7 @@ to the provider id in the "provider" section in the config.yml:
         google.user:
 	  class: class: Acme\MyBundle\Security\User\Provider\googleProvider
 	  arguments:
-	      google: @fos_google.api
+	      google: @bit_google.api
 	      userManager: @fos_user.user_manager
 	      validator: @validator
 	      em: @doctrine.orm.entity_manager

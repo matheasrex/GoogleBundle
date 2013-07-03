@@ -6,7 +6,7 @@
 
 	<services>
 
-		<service id="fos_google.api" class="%fos_google.api.class%">
+		<service id="bit_google.api" class="%bit_google.api.class%">
 			<argument type="collection">
 				<argument key="app_name">%fos_google.app_name%</argument>
 				<argument key="client_id">%fos_google.client_id%</argument>
@@ -19,12 +19,12 @@
 			</argument>
 			<argument type="service" id="session" />
 		</service>
-		<service id="fos_google.helper" class="%fos_google.helper.class%">
+		<service id="bit_google.helper" class="%bit_google.helper.class%">
 			<argument type="service" id="templating" />
-			<argument type="service" id="fos_google.api" />
+			<argument type="service" id="bit_google.api" />
 			<tag name="templating.helper" alias="google" />
 		</service>
-		<service id="fos_google.twig" class="%fos_google.twig.class%">
+		<service id="bit_google.twig" class="%bit_google.twig.class%">
 			<argument type="service" id="service_container" />
 			<tag name="twig.extension" />
 		</service>

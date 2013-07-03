@@ -1,15 +1,15 @@
 <?php
 
 /*
- * This file is part of the FOSGoogleBundle package.
+ * This file is part of the BITGoogleBundle package.
  *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ * (c) bitgandtter <http://bitgandtter.github.com/>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace FOS\GoogleBundle\DependencyInjection\Security\Factory;
+namespace BIT\GoogleBundle\DependencyInjection\Security\Factory;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -31,26 +31,28 @@ class GoogleFactory extends AbstractFactory
   
   public function getKey( )
   {
-    return 'fos_google';
+    return 'bit_google';
   }
   
   protected function getListenerId( )
   {
-    return 'fos_google.security.authentication.listener';
+    return 'bit_google.security.authentication.listener';
   }
   
   protected function createAuthProvider( ContainerBuilder $container, $id, $config, $userProviderId )
   {
-    $authProviderId = 'fos_google.auth.' . $id;
+    $authProviderId = 'bit_google.auth.' . $id;
     
-    $definition = $container->setDefinition( $authProviderId, new DefinitionDecorator( 'fos_google.auth') )
-        ->replaceArgument( 0, $id );
+    $definitionDecorator = new DefinitionDecorator( 'bit_google.auth');
+    $definition = $container->setDefinition( $authProviderId, $definitionDecorator );
+    $definition->replaceArgument( 0, $id );
     
     // with user provider
     if ( isset( $config[ 'provider' ] ) )
     {
-      $definition->addArgument( new Reference( $userProviderId) )
-          ->addArgument( new Reference( 'security.user_checker') )->addArgument( $config[ 'create_user_if_not_exists' ] );
+      $definition->addArgument( new Reference( $userProviderId) );
+      $definition->addArgument( new Reference( 'security.user_checker') );
+      $definition->addArgument( $config[ 'create_user_if_not_exists' ] );
     }
     
     return $authProviderId;
@@ -58,12 +60,12 @@ class GoogleFactory extends AbstractFactory
   
   protected function createEntryPoint( $container, $id, $config, $defaultEntryPointId )
   {
-    $entryPointId = 'fos_google.security.authentication.entry_point.' . $id;
-    $container
-        ->setDefinition( $entryPointId, new DefinitionDecorator( 'fos_google.security.authentication.entry_point') );
+    $entryPointId = 'bit_google.security.authentication.entry_point.' . $id;
+    $definitionDecorator = new DefinitionDecorator( 'bit_google.security.authentication.entry_point');
+    $container->setDefinition( $entryPointId, $definitionDecorator );
     
     // set options to container for use by other classes
-    $container->setParameter( 'fos_google.options.' . $id, $config );
+    $container->setParameter( 'bit_google.options.' . $id, $config );
     
     return $entryPointId;
   }
