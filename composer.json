@@ -2,7 +2,7 @@
     "name": "bitgandtter/google-bundle",
     "type": "symfony-bundle",
     "description": "Integrate Google Services into Symfony 2 app.",
-    "keywords": ["google, user, contacts"],
+    "keywords": ["google", "user", "contacts"],
     "homepage": "http://bitgandtter.github.com",
     "license": "MIT",
     "authors": [
