@@ -49,7 +49,7 @@ Installation
   5. Configure the `google` service in your config:
 
           # application/config/config.yml
-          fos_google:
+          bit_google:
       	    app_name: appName
       	    client_id: 123456789
       	    client_secret: s3cr3t
@@ -69,11 +69,11 @@ Installation
                   public:
                       # since anonymous is allowed users will not be forced to login
                       pattern:   ^/.*
-		      fos_google:
+		      bit_google:
 			        provider: google
 
               access_control:
-                  - { path: ^/secured/.*, role: [IS_AUTHENTICATED_FULLY] } # This is the route secured with fos_google
+                  - { path: ^/secured/.*, role: [IS_AUTHENTICATED_FULLY] } # This is the route secured with bit_google
                   - { path: ^/.*, role: [IS_AUTHENTICATED_ANONYMOUSLY] }
 
      You have to add `/secured/` in your routing for this to work. An example would be...
@@ -134,7 +134,7 @@ to the provider id in the "provider" section in the config.yml:
 	  class: class: Acme\MyBundle\Security\User\Provider\googleProvider
 	  arguments:
 	      google: @bit_google.api
-	      userManager: @fos_user.user_manager
+	      userManager: @bit_user.user_manager
 	      validator: @validator
 	      em: @doctrine.orm.entity_manager
 
