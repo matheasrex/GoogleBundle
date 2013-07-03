@@ -14,7 +14,7 @@ use BIT\GoogleBundle\DependencyInjection\Security\Factory\GoogleFactory;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class FOSGoogleBundle extends Bundle
+class BITGoogleBundle extends Bundle
 {
   
   public function build( ContainerBuilder $container )
