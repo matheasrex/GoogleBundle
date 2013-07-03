@@ -29,16 +29,19 @@ class GoogleExtension extends \Twig_Extension
     return $functions;
   }
   
+  private function helper( )
+  {
+    return $helper = $this->container->get( 'bit_google.helper' );
+  }
+  
   public function renderLoginButton( )
   {
-    $helper = $this->container->get( 'bit_google.helper' );
-    return $helper->loginButton( );
+    return $this->helper( )->loginButton( );
   }
   
   public function renderLoginUrl( )
   {
-    $helper = $this->container->get( 'bit_google.helper' );
-    return $helper->loginUrl( );
+    return $this->helper( )->loginUrl( );
   }
   
   public function getName( )
