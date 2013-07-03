@@ -15,12 +15,10 @@ use BIT\GoogleBundle\Templating\Helper\GoogleHelper;
 class GoogleExtension extends \Twig_Extension
 {
   protected $container;
-  protected $helper;
   
   public function __construct( ContainerInterface $container )
   {
     $this->container = $container;
-    $this->helper = $this->container->get( 'bit_google.helper' );
   }
   
   public function getFunctions( )
@@ -33,12 +31,14 @@ class GoogleExtension extends \Twig_Extension
   
   public function renderLoginButton( )
   {
-    return $this->helper->loginButton( );
+    $helper = $this->container->get( 'bit_google.helper' );
+    return $helper->loginButton( );
   }
   
   public function renderLoginUrl( )
   {
-    return $this->helper->loginUrl( );
+    $helper = $this->container->get( 'bit_google.helper' );
+    return $helper->loginUrl( );
   }
   
   public function getName( )
