@@ -23,9 +23,11 @@ class GoogleExtension extends \Twig_Extension
   
   public function getFunctions( )
   {
+    $extra = array( 'is_safe' => array( 'html' ) );
+    
     $functions = array( );
-    $functions[ 'google_login_button' ] = new \Twig_Function_Method( $this, 'renderLoginButton');
-    $functions[ 'google_login_url' ] = new \Twig_Function_Method( $this, 'renderLoginUrl');
+    $functions[ 'google_login_button' ] = new \Twig_Function_Method( $this, 'renderLoginButton', $extra);
+    $functions[ 'google_login_url' ] = new \Twig_Function_Method( $this, 'renderLoginUrl', $extra);
     return $functions;
   }
   
