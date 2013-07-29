@@ -13,7 +13,7 @@ Installation
 
             {
             "require": {
-                "bitgandtter/google-bundle": "0.1"
+                "bitgandtter/google-bundle": ">=0.1"
             	}
             }
 
@@ -57,9 +57,9 @@ Installation
       	    access_type: online
       	    scopes: [userinfo.email, userinfo.profile]
       	    approval_prompt: auto
-      	    callback_url: http://yourdomain.com/login_check?google=true
+      	    callback_url: http://yourdomain.com/login_check
       	    
-  NOTE: this extra parameter in the callback_url is mandatory needed to locate the google firewall
+  NOTE: the extra parameter in the callback_url needed to locate the google firewall in the previous version was removed. Now the bundle act as a form firewall and you can configure your path and options like one
 
   6. Add this configuration if you want to use the `security component`:
 
