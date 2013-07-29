@@ -49,24 +49,23 @@ class GoogleProvider implements AuthenticationProviderInterface
   {
     if ( !$this->supports( $token ) )
       return null;
-    
-    $this->googleApi->authenticate( );
-    $this->googleApi->setAccessToken( $this->googleApi->getAccessToken( ) );
-    
-    $user = $token->getUser( );
-    
-    if ( $user instanceof UserInterface )
-    {
-      $this->userChecker->checkPostAuth( $user );
-      
-      $newToken = new GoogleUserToken( $this->providerKey, $user, $user->getRoles( ));
-      $newToken->setAttributes( $token->getAttributes( ) );
-      
-      return $newToken;
-    }
-    
     try
     {
+      $this->googleApi->authenticate( );
+      $this->googleApi->setAccessToken( $this->googleApi->getAccessToken( ) );
+      
+      $user = $token->getUser( );
+      
+      if ( $user instanceof UserInterface )
+      {
+        $this->userChecker->checkPostAuth( $user );
+        
+        $newToken = new GoogleUserToken( $this->providerKey, $user, $user->getRoles( ));
+        $newToken->setAttributes( $token->getAttributes( ) );
+        
+        return $newToken;
+      }
+      
       $userData = $this->googleApi->getOAuth( )->userinfo->get( );
       if ( $uid = $userData[ "id" ] )
       {
